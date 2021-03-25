@@ -1,5 +1,15 @@
 #!/bin/sh
 
+set -ue
+umask 0022
+export LC_ALL=C
+export UNIX_STD=2003 # to make HP-UX conform to POSIX
+[ "${ZSH_VERSION:-}" ] && setopt shwordsplit interactivecomments
+
+CURRENT_DIR="$(pwd)"
+TESTDIR=./"${0%/*}/"
+cd "$TESTDIR" || exit 1
+
 echo $0 "@" $(pwd)
 echo "========="
-./src/test_sub $1
+./src/test_sub $CURRENT_DIR $1

@@ -1,4 +1,14 @@
 #!/bin/sh
 
+
+error_exit() {
+  echo "$1" && exit 1
+}
+
+CURRENT_DIR="$1"
+cd "$CURRENT_DIR" || exit 1
+shift
+ARGS="$*"
+
 echo $0 "@" $(pwd)
 echo "TEST" $1
