@@ -1,3 +1,5 @@
 #!/bin/sh
 
-echo 'Hello Homebrew!!'
+echo $0 "@" $(pwd)
+echo "========="
+./src/test_sub $1
