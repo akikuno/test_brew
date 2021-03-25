@@ -6,10 +6,10 @@ export LC_ALL=C
 export UNIX_STD=2003 # to make HP-UX conform to POSIX
 [ "${ZSH_VERSION:-}" ] && setopt shwordsplit interactivecomments
 
-CURRENT_DIR="$(pwd)"
-TESTDIR=./"${0%/*}/"
-cd "$TESTDIR" || exit 1
+dirname="$(cd -- "$(dirname -- "$0")" && pwd)" || exit $?
+DIR="${dirname%/}/"
+echo $DIR
 
 echo $0 "@" $(pwd)
 echo "========="
-./src/test_sub $CURRENT_DIR $1
+$DIR/src/test_sub $DIR $1
