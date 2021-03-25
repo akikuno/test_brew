@@ -5,8 +5,8 @@ error_exit() {
   echo "$1" && exit 1
 }
 
-CURRENT_DIR="$1"
-cd "$CURRENT_DIR" || exit 1
+DIR="$1"
+cd "$DIR" || exit 1
 shift
 ARGS="$*"
 

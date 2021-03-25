@@ -6,9 +6,19 @@ export LC_ALL=C
 export UNIX_STD=2003 # to make HP-UX conform to POSIX
 [ "${ZSH_VERSION:-}" ] && setopt shwordsplit interactivecomments
 
-dirname="$(cd -- "$(dirname -- "$0")" && pwd)" || exit $?
-DIR="${dirname%/}/"
-echo $DIR
+CMD_LINK=$(ls -l "$0" | awk '{print $NF}')
+echo "0: $CMD_LINK"
+DIR="$(cd -- "$(dirname -- "$0")" && pwd)" || exit $?
+echo "1: $DIR"
+DIR="${DIR%/}/"
+echo "2: $DIR"
+
+DIR=$(
+  cd $DIR
+  cd ${CMD_LINK%/*}/
+  pwd
+)
+echo "3: $DIR"
 
 echo $0 "@" $(pwd)
 echo "========="
