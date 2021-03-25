@@ -1,25 +1,25 @@
 #!/bin/sh
 
-set -ue
+set -eu
 umask 0022
 export LC_ALL=C
-export UNIX_STD=2003 # to make HP-UX conform to POSIX
+export UNIX_STD=2003
 [ "${ZSH_VERSION:-}" ] && setopt shwordsplit interactivecomments
 
-CMD_LINK=$(ls -l "$0" | awk '{print $NF}')
-echo "0: $CMD_LINK"
-DIR="$(cd -- "$(dirname -- "$0")" && pwd)" || exit $?
-echo "1: $DIR"
-DIR="${DIR%/}/"
-echo "2: $DIR"
+# The entire contents of GitHub repository are stored in the linked directory.
+# So, let's get the full PATH to the linked directory
 
+CMD_LINK=$(ls -l "$0" | awk '{print $NF}')
+
+DIR="$(cd -- "$(dirname -- "$0")" && pwd)" || exit $?
+DIR="${DIR%/}/"
 DIR=$(
-  cd $DIR
-  cd ${CMD_LINK%/*}/
+  cd "$DIR" || exit $?
+  cd "${CMD_LINK%/*}/" || exit $?
   pwd
 )
-echo "3: $DIR"
 
-echo $0 "@" $(pwd)
-echo "========="
-$DIR/src/test_sub $DIR $1
+# Then, you can execute commands
+"$DIR"/src/test_sub $DIR $1
+
+Rscript "$DIR"/src/test_R
