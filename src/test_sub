@@ -9,4 +9,4 @@ cd "$DIR" || exit $?
 shift
 ARGS="$*"
 
-echo "Hello ${1-Brew}!"
+echo "Hello ${1}!"
