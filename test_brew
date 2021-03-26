@@ -20,6 +20,6 @@ DIR=$(
 )
 
 # Then, you can execute commands
-"$DIR"/src/test_sub $DIR ${1:-Brew}
+"$DIR"/src/test_sub.sh $DIR ${1:-Brew}
 
-Rscript "$DIR"/src/test_R
+Rscript "$DIR"/src/test_R.R
