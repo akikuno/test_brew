@@ -10,6 +10,7 @@ export UNIX_STD=2003
 # So, let's get the full PATH to the linked directory
 
 CMD_LINK=$(ls -l "$0" | awk '{print $NF}')
+ls -l "$0"
 
 DIR="$(cd -- "$(dirname -- "$0")" && pwd)" || exit $?
 DIR="${DIR%/}/"
